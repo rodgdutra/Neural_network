@@ -88,12 +88,7 @@ class Auto_associative_mlp():
 																					   self.Y3)
 		self.X_train3, self.X_test3,self.Y_train3, self.Y_test3 = self.split_dataset(self.X_train3,
 																						self.Y_train3)
-		print(self.X_val1.shape)
-		self.train_and_val(self.model1,self.X_train1,
-						   self.X_train1,
-						   self.X_val1,
-						   self.X_val1)
-		self.score(self.model1,'1',self.X_test1, self.Y_test1)
+
 
 	def load_data(self,data_csv):
 		# load dataset
@@ -105,19 +100,17 @@ class Auto_associative_mlp():
 		Y_i = self.dataset[start:end][:,13:15]
 		return X_i,Y_i
 
-	def baseline_model(self,h_layers=50):
+	def baseline_model(self,h_layers=8):
 		# create model
 		model = Sequential()
-		model.add(Dense(h_layers, input_dim=13, activation='relu'))
-		model.add(Dense(13, activation='sigmoid'))
+		model.add(Dense(h_layers, input_dim=13, activation='linear'))
+		model.add(Dense(13, activation='linear'))
 
 		# Compile model
-		model.compile(loss='mse',
-						   optimizer='adam',
-						   metrics=['accuracy'])
+		model.compile(loss='mean_squared_logarithmic_error', optimizer='RMSprop')
 		return model
 
-	def split_dataset(self,X,Y,seed=9):
+	def split_dataset(self,X,Y,seed=1):
 		# Split data set into train and validation
 		X_train, X_val, Y_train, Y_val = train_test_split(X,Y,
 														  test_size=0.2,
@@ -130,14 +123,36 @@ class Auto_associative_mlp():
 																			   random_state=seed)
 	def train_and_val(self,model,X,Y,X_val,Y_val):
 		# Train and validate the model
-		model.fit(X,Y[:,0],
-				  validation_data=(X_val,Y_val[:,0]),
-				  epochs=120, batch_size=10)
+		model.fit(X,Y,
+				  validation_data=(X_val,Y_val),
+				  batch_size=135,
+				  epochs=1000,
+				  shuffle=True,)
+
+	def train_procedure(self):
+		self.train_and_val(self.model1,self.X_train1,
+						   self.X_train1,
+						   self.X_val1,
+						   self.X_val1)
+		"""
+		self.train_and_val(self.model1,self.X1[0:40],
+					self.X1[0:40],
+					self.X1[40:50],
+					self.X1[40:50])
+		"""
+		self.score(self.model1,'1',self.X_test1, self.X_test1)
 
 	def score(self,model,id,X_test,Y_test):
-		scores = model.evaluate(X_test,Y_test[:,0])
+		scores = model.evaluate(X_test,Y_test)
 		# evaluate the model
-		print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
+		print("error %f" %scores)
+
+	def total_out(self):
+		self.net_out = self.model1.predict(self.X1)
+		print("real database")
+		#pprint(self.X1)
+		print("net data ")
+		#pprint(self.net_out)
 
 def backprop_test():
 	mlp = Back_prop_mlp()
@@ -157,7 +172,8 @@ def backprop_test():
 
 def main():
 	auto_mlp = Auto_associative_mlp()
-
+	auto_mlp.train_procedure()
+	auto_mlp.total_out()
 
 if __name__ == '__main__':
 	main()
