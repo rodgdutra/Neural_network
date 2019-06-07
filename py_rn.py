@@ -8,8 +8,8 @@ from keras.utils import np_utils
 from sklearn.model_selection import train_test_split
 from pprint import pprint
 import matplotlib.pyplot as plt
-import matplotlib 
-
+import matplotlib
+matplotlib.style.use('classic')
 class Back_prop_mlp():
 	def __init__(self,data_csv='wine2.csv'):
 		self.load_data(data_csv)
@@ -68,6 +68,7 @@ class Back_prop_mlp():
 class Auto_associative_mlp():
 	def __init__(self,data_csv='wine2.csv'):
 		self.load_data(data_csv)
+		self.norm_dataset(0,13)
 		self.X1,self.Y1 = self.split_class_dataset(0,59)
 		self.X2,self.Y2 = self.split_class_dataset(59,130)
 		self.X3,self.Y3 = self.split_class_dataset(130,178)
@@ -94,24 +95,41 @@ class Auto_associative_mlp():
 		# load dataset
 		dataframe = pd.read_csv(data_csv, header=None)
 		self.dataset = dataframe.values
+		#pprint(dataframe)
 
 	def split_class_dataset(self,start,end):
 		X_i = self.dataset[start:end][:,0:13].astype(float)
 		Y_i = self.dataset[start:end][:,13:15]
 		return X_i,Y_i
 
-	def baseline_model(self,h_layers=9):
+	def baseline_model(self,h_layers=5):
 		# create model
 		model = Sequential()
-		model.add(Dense(h_layers, input_dim=13, activation='tanh'))
+		model.add(Dense(h_layers, input_dim=13, activation='linear'))
 		model.add(Dense(13, activation='linear'))
 		rms_prop = keras.optimizers.RMSprop(lr=1, rho=0.9, epsilon=None, decay=0)
-		adam = keras.optimizers.Adam(lr=0.1, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+		adam = keras.optimizers.Adam(lr=0.045, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 		# Compile model
 		model.compile(loss='mean_squared_error', optimizer=adam,metrics=['acc'])
 		return model
 
-	def split_dataset(self,X,Y,seed=1):
+	def norm_dataset(self,start,end):
+		dataset = list()
+
+		for i in range(start,end):
+			norm_col = self.dataset[:,i]/np.amax(self.dataset[:,i])
+			dataset.append(norm_col)
+
+		for i in range(end,end+2):
+			col = self.dataset[:,i]
+			dataset.append(col)
+
+		dataset = pd.DataFrame(dataset)
+		dataset = dataset.transpose()
+		pprint(dataset)
+		self.dataset =dataset.values
+
+	def split_dataset(self,X,Y,seed=9):
 		# Split data set into train and validation
 		X_train, X_val, Y_train, Y_val = train_test_split(X,Y,
 														  test_size=0.2,
@@ -127,7 +145,7 @@ class Auto_associative_mlp():
 		model.fit(X,Y,
 				  validation_data=(X_val,Y_val),
 				  batch_size=200,
-				  epochs=8000,
+				  epochs=3000,
 				  shuffle=False)
 
 	def train_procedure(self):
@@ -185,7 +203,6 @@ def backprop_test():
 	mlp.total_output()
 	mlp.score()
 
-	matplotlib.style.use('classic')
 	plt.figure()
 	plt.plot(mlp.Y_test[:,1],mlp.net_test,'yd',label='net test')
 	plt.plot(mlp.Y[:,1],mlp.net_out,'r*',label='net_output')
