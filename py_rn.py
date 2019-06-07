@@ -8,7 +8,7 @@ from keras.utils import np_utils
 from sklearn.model_selection import train_test_split
 from pprint import pprint
 import matplotlib.pyplot as plt
-
+import matplotlib 
 
 class Back_prop_mlp():
 	def __init__(self,data_csv='wine2.csv'):
@@ -22,16 +22,16 @@ class Back_prop_mlp():
 		self.X = self.dataset[:,0:13].astype(float)
 		self.Y = self.dataset[:,13:15]
 
-	def baseline_model(self,h_layers=60):
+	def baseline_model(self,h_layers=50):
 		# create model
 		self.model = Sequential()
 		self.model.add(Dense(h_layers, input_dim=13,
 							 activation='sigmoid'))
-		self.model.add(Dense(1, activation='relu'))
+		self.model.add(Dense(1, activation='linear'))
 
 		# Compile model
 		self.model.compile(loss='mse',
-						   optimizer='adam',
+						   optimizer='RMSprop',
 						   metrics=['accuracy'])
 
 	def split_data(self,seed=9,random=True):
@@ -53,7 +53,7 @@ class Back_prop_mlp():
 		self.model.fit(self.X_train,
 					   self.Y_train[:,0],
 					   validation_data=(self.X_val,self.Y_val[:,0]),
-					   epochs=400, batch_size=10,verbose=0)
+					   epochs=400, batch_size=10,verbose=1)
 	def test(self):
 		self.net_test = np.round([i[0] for i in self.model.predict(self.X_test)])
 
@@ -68,9 +68,9 @@ class Back_prop_mlp():
 class Auto_associative_mlp():
 	def __init__(self,data_csv='wine2.csv'):
 		self.load_data(data_csv)
-		self.X1,self.Y1 = self.split_class_dataset(0,60)
-		self.X2,self.Y2 = self.split_class_dataset(60,131)
-		self.X3,self.Y3 = self.split_class_dataset(131,178)
+		self.X1,self.Y1 = self.split_class_dataset(0,59)
+		self.X2,self.Y2 = self.split_class_dataset(59,130)
+		self.X3,self.Y3 = self.split_class_dataset(130,178)
 
 		self.model1 = self.baseline_model()
 		self.model2 = self.baseline_model()
@@ -100,14 +100,15 @@ class Auto_associative_mlp():
 		Y_i = self.dataset[start:end][:,13:15]
 		return X_i,Y_i
 
-	def baseline_model(self,h_layers=8):
+	def baseline_model(self,h_layers=9):
 		# create model
 		model = Sequential()
-		model.add(Dense(h_layers, input_dim=13, activation='linear'))
+		model.add(Dense(h_layers, input_dim=13, activation='tanh'))
 		model.add(Dense(13, activation='linear'))
-
+		rms_prop = keras.optimizers.RMSprop(lr=1, rho=0.9, epsilon=None, decay=0)
+		adam = keras.optimizers.Adam(lr=0.1, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 		# Compile model
-		model.compile(loss='mean_squared_logarithmic_error', optimizer='RMSprop')
+		model.compile(loss='mean_squared_error', optimizer=adam,metrics=['acc'])
 		return model
 
 	def split_dataset(self,X,Y,seed=1):
@@ -125,34 +126,56 @@ class Auto_associative_mlp():
 		# Train and validate the model
 		model.fit(X,Y,
 				  validation_data=(X_val,Y_val),
-				  batch_size=135,
-				  epochs=1000,
-				  shuffle=True,)
+				  batch_size=200,
+				  epochs=8000,
+				  shuffle=False)
 
 	def train_procedure(self):
-		self.train_and_val(self.model1,self.X_train1,
-						   self.X_train1,
-						   self.X_val1,
-						   self.X_val1)
+		pprint(self.Y3)
+		self.train_and_val(self.model1,self.X_train2,
+						   self.X_train2,
+						   self.X_val2,
+						   self.X_val2)
 		"""
 		self.train_and_val(self.model1,self.X1[0:40],
 					self.X1[0:40],
 					self.X1[40:50],
 					self.X1[40:50])
 		"""
-		self.score(self.model1,'1',self.X_test1, self.X_test1)
+		print("error with dataset 1")
+		self.score(self.model1,'1',self.X1, self.X1)
+		print("error with dataset 2")
+		self.score(self.model1,'2',self.X2, self.X2)
+		print("error with dataset 3")
+		self.score(self.model1,'2',self.X3, self.X3)
 
 	def score(self,model,id,X_test,Y_test):
 		scores = model.evaluate(X_test,Y_test)
 		# evaluate the model
-		print("error %f" %scores)
+		print("error %f" %scores[0])
 
 	def total_out(self):
-		self.net_out = self.model1.predict(self.X1)
-		print("real database")
-		#pprint(self.X1)
-		print("net data ")
-		#pprint(self.net_out)
+		self.net_out = self.model1.predict(self.X_test1)
+		error = list()
+
+		for x in range(0,len(self.Y_test1[:,0])):
+			y = x+1
+			scores = self.model1.evaluate(self.X_test1[x:y],self.X_test1[x:y])
+			error.append(scores[0])
+
+		for x in range(0,len(self.Y_test2[:,0])):
+			y = x+1
+			scores = self.model1.evaluate(self.X_test2[x:y],self.X_test2[x:y])
+			error.append(scores[0])
+
+		for x in range(0,len(self.Y_test3[:,0])):
+			y = x+1
+			scores = self.model1.evaluate(self.X_test3[x:y],self.X_test3[x:y])
+			error.append(scores[0])
+		print(len(self.Y_test1[:,0]),len(self.Y_test2[:,0]),len(self.Y_test3[:,0]))
+		plt.figure()
+		plt.plot(error)
+		plt.show()
 
 def backprop_test():
 	mlp = Back_prop_mlp()
@@ -162,6 +185,7 @@ def backprop_test():
 	mlp.total_output()
 	mlp.score()
 
+	matplotlib.style.use('classic')
 	plt.figure()
 	plt.plot(mlp.Y_test[:,1],mlp.net_test,'yd',label='net test')
 	plt.plot(mlp.Y[:,1],mlp.net_out,'r*',label='net_output')
@@ -170,10 +194,15 @@ def backprop_test():
 	plt.legend()
 	plt.show()
 
-def main():
+def auto_mlp_test():
+
 	auto_mlp = Auto_associative_mlp()
 	auto_mlp.train_procedure()
 	auto_mlp.total_out()
+
+	#backprop_test()
+def main():
+	auto_mlp_test()
 
 if __name__ == '__main__':
 	main()
