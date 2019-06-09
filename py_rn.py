@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from pprint import pprint
 import matplotlib.pyplot as plt
 import matplotlib
-matplotlib.style.use('classic')
+#matplotlib.style.use('classic')
 class Back_prop_mlp():
 	def __init__(self,data_csv='wine2.csv'):
 		self.load_data(data_csv)
@@ -31,7 +31,7 @@ class Back_prop_mlp():
 
 		# Compile model
 		self.model.compile(loss='mse',
-						   optimizer='RMSprop',
+						   optimizer='ADAM',
 						   metrics=['accuracy'])
 
 	def split_data(self,seed=9,random=True):
@@ -69,6 +69,8 @@ class Auto_associative_mlp():
 	def __init__(self,data_csv='wine2.csv'):
 		self.load_data(data_csv)
 		self.norm_dataset(0,13)
+		self.X = self.dataset[:,0:13].astype(float)
+		self.Y = self.dataset[:,13:15]
 		self.X1,self.Y1 = self.split_class_dataset(0,59)
 		self.X2,self.Y2 = self.split_class_dataset(59,130)
 		self.X3,self.Y3 = self.split_class_dataset(130,178)
@@ -77,18 +79,9 @@ class Auto_associative_mlp():
 		self.model2 = self.baseline_model()
 		self.model3 = self.baseline_model()
 
-		self.X_train1, self.X_val1,self.Y_train1, self.Y_val1   = self.split_dataset(self.X1,
-																					   self.Y1)
-		self.X_train1, self.X_test1,self.Y_train1, self.Y_test1 = self.split_dataset(self.X_train1,
-																						self.Y_train1)
-		self.X_train2, self.X_val2,self.Y_train2, self.Y_val2   = self.split_dataset(self.X2,
-																					   self.Y2)
-		self.X_train2, self.X_test2,self.Y_train2, self.Y_test2 = self.split_dataset(self.X_train2,
-																						self.Y_train2)
-		self.X_train3, self.X_val3,self.Y_train3, self.Y_val3   = self.split_dataset(self.X3,
-																					   self.Y3)
-		self.X_train3, self.X_test3,self.Y_train3, self.Y_test3 = self.split_dataset(self.X_train3,
-																						self.Y_train3)
+		self.split_dataset('1')
+		self.split_dataset('2')
+		self.split_dataset('3')
 
 
 	def load_data(self,data_csv):
@@ -102,7 +95,7 @@ class Auto_associative_mlp():
 		Y_i = self.dataset[start:end][:,13:15]
 		return X_i,Y_i
 
-	def baseline_model(self,h_layers=5):
+	def baseline_model(self,h_layers=2):
 		# create model
 		model = Sequential()
 		model.add(Dense(h_layers, input_dim=13, activation='linear'))
@@ -126,20 +119,28 @@ class Auto_associative_mlp():
 
 		dataset = pd.DataFrame(dataset)
 		dataset = dataset.transpose()
-		pprint(dataset)
 		self.dataset =dataset.values
 
-	def split_dataset(self,X,Y,seed=9):
-		# Split data set into train and validation
-		X_train, X_val, Y_train, Y_val = train_test_split(X,Y,
-														  test_size=0.2,
-														  random_state=seed)
-		return X_train, X_val, Y_train, Y_val
+	def split_dataset(self,id_i,seed=9):
+
+		X = getattr(self,'X'+id_i)
+		Y = getattr(self,'Y'+id_i)
+
+		train_x, val_x ,train_y, val_y  = train_test_split(X,Y,
+															test_size=0.2,
+															random_state=seed)
 		# Split train into train and test
-		self.X_train, self.X_test,self.Y_train, self.Y_test = train_test_split(self.X_train,
-																			   self.Y_train,
-																			   test_size=0.25,
-																			   random_state=seed)
+		train_x, test_x, train_y, test_y = train_test_split(train_x,train_y,
+															test_size=0.25,
+															random_state=seed)
+
+		setattr(self,'X_train'+id_i,train_x)
+		setattr(self,'X_test'+id_i,test_x )
+		setattr(self,'X_val'+id_i,val_x)
+		setattr(self,'Y_train'+id_i,train_y )
+		setattr(self,'Y_test'+id_i,test_y )
+		setattr(self,'Y_val'+id_i,val_y )
+
 	def train_and_val(self,model,X,Y,X_val,Y_val):
 		# Train and validate the model
 		model.fit(X,Y,
@@ -148,52 +149,62 @@ class Auto_associative_mlp():
 				  epochs=3000,
 				  shuffle=False)
 
-	def train_procedure(self):
-		pprint(self.Y3)
-		self.train_and_val(self.model1,self.X_train2,
-						   self.X_train2,
-						   self.X_val2,
-						   self.X_val2)
-		"""
-		self.train_and_val(self.model1,self.X1[0:40],
-					self.X1[0:40],
-					self.X1[40:50],
-					self.X1[40:50])
-		"""
-		print("error with dataset 1")
-		self.score(self.model1,'1',self.X1, self.X1)
-		print("error with dataset 2")
-		self.score(self.model1,'2',self.X2, self.X2)
-		print("error with dataset 3")
-		self.score(self.model1,'2',self.X3, self.X3)
+	def train_procedure(self,id_i):
+		model  = getattr(self,'model'+id_i)
+		train  = getattr(self,'X_train'+id_i)
+		val    = getattr(self,'X_val'+id_i)
+
+		self.train_and_val(model,train,
+						   train,
+						   val,
+						   val)
 
 	def score(self,model,id,X_test,Y_test):
 		scores = model.evaluate(X_test,Y_test)
 		# evaluate the model
 		print("error %f" %scores[0])
 
+	def model_out(self):
+		print("")
+
 	def total_out(self):
-		self.net_out = self.model1.predict(self.X_test1)
+		error_1 = list()
+		error_2 = list()
+		error_3 = list()
+
 		error = list()
+		self.out = list()
 
-		for x in range(0,len(self.Y_test1[:,0])):
+		for x in range(0,len(self.Y[:,0])):
 			y = x+1
-			scores = self.model1.evaluate(self.X_test1[x:y],self.X_test1[x:y])
-			error.append(scores[0])
+			scores = self.model1.evaluate(self.X[x:y],self.X[x:y])
+			error_1.append(scores[0])
 
-		for x in range(0,len(self.Y_test2[:,0])):
+		for x in range(0,len(self.Y[:,0])):
 			y = x+1
-			scores = self.model1.evaluate(self.X_test2[x:y],self.X_test2[x:y])
-			error.append(scores[0])
+			scores = self.model2.evaluate(self.X[x:y],self.X[x:y])
+			error_2.append(scores[0])
 
-		for x in range(0,len(self.Y_test3[:,0])):
+		for x in range(0,len(self.Y[:,0])):
 			y = x+1
-			scores = self.model1.evaluate(self.X_test3[x:y],self.X_test3[x:y])
-			error.append(scores[0])
-		print(len(self.Y_test1[:,0]),len(self.Y_test2[:,0]),len(self.Y_test3[:,0]))
+			scores = self.model3.evaluate(self.X[x:y],self.X[x:y])
+			error_3.append(scores[0])
+
+		error.append(error_1)
+		error.append(error_2)
+		error.append(error_3)
+		error = pd.DataFrame(error)
+		error = error.transpose()
+		error = error.values
 		plt.figure()
-		plt.plot(error)
+		plt.plot(error_2)
 		plt.show()
+		for i in range(0,len(error[:,0])):
+			out_i = np.argmin(error[i])
+			self.out.append(out_i)
+
+		self.out = np.add(self.out,1)
+		#print(len(self.Y_test1[:,0]),len(self.Y_test2[:,0]),len(self.Y_test3[:,0]))
 
 def backprop_test():
 	mlp = Back_prop_mlp()
@@ -214,12 +225,18 @@ def backprop_test():
 def auto_mlp_test():
 
 	auto_mlp = Auto_associative_mlp()
-	auto_mlp.train_procedure()
+	auto_mlp.train_procedure('1')
+	auto_mlp.train_procedure('2')
+	auto_mlp.train_procedure('3')
 	auto_mlp.total_out()
+	plt.plot(auto_mlp.Y[:,1],auto_mlp.out,'r*',label='net_output')
+	plt.plot(auto_mlp.Y[:,1],auto_mlp.Y[:,0],'b.',label='true output')
+	plt.grid()
+	plt.legend()
 
-	#backprop_test()
 def main():
-	auto_mlp_test()
-
+	backprop_test()
+	#auto_mlp_test()
+	plt.show()
 if __name__ == '__main__':
 	main()
