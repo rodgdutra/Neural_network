@@ -252,9 +252,29 @@ class Auto_associative_mlp():
 		error = pd.DataFrame(error)
 		error = error.transpose()
 		error = error.values
-		#plt.figure()
-		#plt.plot(error_2)
-		#plt.show()
+
+		if test == True:
+			plt.figure()
+			plt.plot(error_1,'r',label='Erro classe 1')
+			plt.legend()
+			plt.ylabel('Erro quadrático médio')
+			plt.xlabel('Index de teste')
+			plt.grid()
+			plt.savefig('plots/Erro_classe1_auto.png')
+			plt.figure()
+			plt.plot(error_2,'b',label='Erro classe 2')
+			plt.legend()
+			plt.ylabel('Erro quadrático médio')
+			plt.xlabel('Index de teste')
+			plt.grid()
+			plt.savefig('plots/Erro_classe2_auto.png')
+			plt.figure()
+			plt.plot(error_3,'g',label='Erro classe 3')
+			plt.legend()
+			plt.ylabel('Erro quadrático médio')
+			plt.xlabel('Index de teste')
+			plt.grid()
+			plt.savefig('plots/Erro_classe3_auto.png')
 		for i in range(0,len(error[:,0])):
 			out_i = np.argmin(error[i])
 			out.append(out_i)
@@ -313,12 +333,14 @@ def compare_nets():
 
 
 	plt.figure()
-	plt.plot(mlp.Y_test[:,1],mlp.net_test,'g^',label='net test mlp')
-	plt.plot(id_test,test,'rv',label='net test autoencoder')
+	plt.plot(mlp.Y_test[:,1],mlp.net_test,'g^',label='RN mlp')
+	plt.plot(id_test,test,'rv',label='RN autoassociativa')
 	plt.plot(mlp.Y[:,1],mlp.Y[:,0],'b.',label='true output')
+	plt.xlabel('Index de entrada da rede')
+	plt.ylabel('Classe da saída')
 	plt.grid()
 	plt.legend()
-	plt.show()
+	plt.savefig('plots/saida_comparativa.png')
 
 def main():
 	#backprop_test()
