@@ -13,7 +13,23 @@ import matplotlib
 class Back_prop_mlp():
 	def __init__(self,data_csv='wine2.csv'):
 		self.load_data(data_csv)
+		self.norm_dataset(0,13)
 		self.baseline_model()
+
+	def norm_dataset(self,start,end):
+		dataset = list()
+
+		for i in range(start,end):
+			norm_col = self.dataset[:,i]/np.amax(self.dataset[:,i])
+			dataset.append(norm_col)
+
+		for i in range(end,end+2):
+			col = self.dataset[:,i]
+			dataset.append(col)
+
+		dataset = pd.DataFrame(dataset)
+		dataset = dataset.transpose()
+		self.dataset =dataset.values
 
 	def load_data(self,data_csv):
 		# load dataset
@@ -48,6 +64,16 @@ class Back_prop_mlp():
 																				random_state=seed)
 			print(self.X_train.shape)
 
+	def set_data(self,X,X_train,X_val,X_test,Y,Y_train,Y_val,Y_test):
+		self.X       = X
+		self.X_train = X_train
+		self.X_val   = X_val
+		self.X_test  = X_test
+		self.Y       = Y
+		self.Y_train = Y_train
+		self.Y_val   = Y_val
+		self.Y_test  = Y_test
+
 	def train_and_val(self):
 		# Train and validate the model
 		self.model.fit(self.X_train,
@@ -76,7 +102,7 @@ class Auto_associative_mlp():
 		self.X3,self.Y3 = self.split_class_dataset(130,178)
 
 		self.model1 = self.baseline_model()
-		self.model2 = self.baseline_model()
+		self.model2 = self.baseline_model(h_layers=5,dec_act='linear')
 		self.model3 = self.baseline_model()
 
 		self.split_dataset('1')
@@ -95,10 +121,10 @@ class Auto_associative_mlp():
 		Y_i = self.dataset[start:end][:,13:15]
 		return X_i,Y_i
 
-	def baseline_model(self,h_layers=2):
+	def baseline_model(self,h_layers=5,dec_act='sigmoid'):
 		# create model
 		model = Sequential()
-		model.add(Dense(h_layers, input_dim=13, activation='linear'))
+		model.add(Dense(h_layers, input_dim=13, activation=dec_act))
 		model.add(Dense(13, activation='linear'))
 		rms_prop = keras.optimizers.RMSprop(lr=1, rho=0.9, epsilon=None, decay=0)
 		adam = keras.optimizers.Adam(lr=0.045, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
@@ -141,6 +167,17 @@ class Auto_associative_mlp():
 		setattr(self,'Y_test'+id_i,test_y )
 		setattr(self,'Y_val'+id_i,val_y )
 
+	def get_data(self):
+		X_train = np.concatenate((self.X_train1,self.X_train2,self.X_train3))
+		X_val   = np.concatenate((self.X_val1,self.X_val2,self.X_val3))
+		X_test  = np.concatenate((self.X_test1,self.X_test2,self.X_test3))
+
+		Y_train = np.concatenate((self.Y_train1,self.Y_train2,self.Y_train3))
+		Y_val   = np.concatenate((self.Y_val1,self.Y_val2,self.Y_val3))
+		Y_test  = np.concatenate((self.Y_test1,self.Y_test2,self.Y_test3))
+
+		return self.X,X_train,X_val,X_test,self.Y,Y_train,Y_val,Y_test
+
 	def train_and_val(self,model,X,Y,X_val,Y_val):
 		# Train and validate the model
 		model.fit(X,Y,
@@ -167,27 +204,46 @@ class Auto_associative_mlp():
 	def model_out(self):
 		print("")
 
-	def total_out(self):
+	def total_out(self,test=False):
+		if test == False:
+			Y = getattr(self,'Y')
+			X = getattr(self,'X')
+			index  = Y[:,1]
+
+		if test == True:
+			Y1 = getattr(self,'Y_test1')
+			Y2 = getattr(self,'Y_test2')
+			Y3 = getattr(self,'Y_test3')
+			Y  = np.concatenate((Y1,Y2))
+			Y  = np.concatenate((Y,Y3))
+			X1 = getattr(self,'X_test1')
+			X2 = getattr(self,'X_test2')
+			X3 = getattr(self,'X_test3')
+			X  = np.concatenate((X1,X2))
+			X  = np.concatenate((X,X3))
+			index  = np.append(Y1[:,1],Y2[:,1])
+			index  = np.append(index,Y3[:,1])
+
 		error_1 = list()
 		error_2 = list()
 		error_3 = list()
 
 		error = list()
-		self.out = list()
+		out = list()
 
-		for x in range(0,len(self.Y[:,0])):
+		for x in range(0,len(Y[:,0])):
 			y = x+1
-			scores = self.model1.evaluate(self.X[x:y],self.X[x:y])
+			scores = self.model1.evaluate(X[x:y],X[x:y])
 			error_1.append(scores[0])
 
-		for x in range(0,len(self.Y[:,0])):
+		for x in range(0,len(Y[:,0])):
 			y = x+1
-			scores = self.model2.evaluate(self.X[x:y],self.X[x:y])
+			scores = self.model2.evaluate(X[x:y],X[x:y])
 			error_2.append(scores[0])
 
-		for x in range(0,len(self.Y[:,0])):
+		for x in range(0,len(Y[:,0])):
 			y = x+1
-			scores = self.model3.evaluate(self.X[x:y],self.X[x:y])
+			scores = self.model3.evaluate(X[x:y],X[x:y])
 			error_3.append(scores[0])
 
 		error.append(error_1)
@@ -196,14 +252,17 @@ class Auto_associative_mlp():
 		error = pd.DataFrame(error)
 		error = error.transpose()
 		error = error.values
-		plt.figure()
-		plt.plot(error_2)
-		plt.show()
+		#plt.figure()
+		#plt.plot(error_2)
+		#plt.show()
 		for i in range(0,len(error[:,0])):
 			out_i = np.argmin(error[i])
-			self.out.append(out_i)
+			out.append(out_i)
 
-		self.out = np.add(self.out,1)
+
+		out    = np.add(out,1)
+
+		return index,out
 		#print(len(self.Y_test1[:,0]),len(self.Y_test2[:,0]),len(self.Y_test3[:,0]))
 
 def backprop_test():
@@ -228,15 +287,43 @@ def auto_mlp_test():
 	auto_mlp.train_procedure('1')
 	auto_mlp.train_procedure('2')
 	auto_mlp.train_procedure('3')
-	auto_mlp.total_out()
-	plt.plot(auto_mlp.Y[:,1],auto_mlp.out,'r*',label='net_output')
+	id_out, out = auto_mlp.total_out()
+	id_test, test = auto_mlp.total_out(test=True)
+	plt.plot(id_test,test,'yd',label='net test')
+	plt.plot(id_out,out,'r*',label='net_output')
 	plt.plot(auto_mlp.Y[:,1],auto_mlp.Y[:,0],'b.',label='true output')
 	plt.grid()
 	plt.legend()
 
-def main():
-	backprop_test()
-	#auto_mlp_test()
+def compare_nets():
+	auto_mlp = Auto_associative_mlp()
+	auto_mlp.train_procedure('1')
+	auto_mlp.train_procedure('2')
+	auto_mlp.train_procedure('3')
+	id_out, out = auto_mlp.total_out()
+	id_test, test = auto_mlp.total_out(test=True)
+	X,X_train,X_val,X_test,Y,Y_train,Y_val,Y_test = auto_mlp.get_data()
+
+	mlp = Back_prop_mlp()
+	mlp.set_data(X,X_train,X_val,X_test,Y,Y_train,Y_val,Y_test)
+	mlp.train_and_val()
+	mlp.test()
+	mlp.total_output()
+	mlp.score()
+
+
+	plt.figure()
+	plt.plot(mlp.Y_test[:,1],mlp.net_test,'g^',label='net test mlp')
+	plt.plot(id_test,test,'rv',label='net test autoencoder')
+	plt.plot(mlp.Y[:,1],mlp.Y[:,0],'b.',label='true output')
+	plt.grid()
+	plt.legend()
 	plt.show()
+
+def main():
+	#backprop_test()
+	#auto_mlp_test()
+	#plt.show()
+	compare_nets()
 if __name__ == '__main__':
 	main()
