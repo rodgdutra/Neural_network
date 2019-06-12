@@ -1,0 +1,61 @@
+%=================================================================================================
+%= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+%=																								 =
+%=							   >  >  INFORMAÇÕES DO DOCUMENTO  <  <								 =
+%=																								 =
+%= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+%=================================================================================================
+
+\documentclass[a4paper,10pt,compsoc]{IEEEtran}
+
+\usepackage{cmap}											%-> Mapear caracteres especiais no PDF
+\usepackage[T1]{fontenc}									%-> Selecao de códigos de fonte
+\usepackage[utf8]{inputenc}									%-> Codificacao do documento
+\usepackage{indentfirst}									%-> Indenta o primeiro parágrafo seção
+\usepackage{color}											%-> Controle das cores
+\usepackage{graphicx}										%-> Inclusão de gráficos
+\usepackage{units}											%-> 
+\usepackage[english,brazil]{babel}							%-> documento em Português e Inglês
+\usepackage{bold-extra}										%-> 
+\usepackage{eso-pic}										%-> 
+\usepackage{geometry}										%-> 
+
+
+\input{00-Setup/01-Setup}									%-> Setup
+%\input{00-Setup/02-Comandos}								%-> Comandos para novas funcionalidades
+%\input{00-Setup/03-Informacoes}							%-> Informações Gerais do Documento
+
+
+\begin{document}
+
+% ELEMENTOS PRÉ-TEXTUAIS =========================================================================
+
+\twocolumn[
+\begin{@twocolumnfalse}
+
+\begin{center}
+\input{01-Elementos-pre-textuais/01-Titulo-autor}			%->	Capa
+\input{01-Elementos-pre-textuais/02-Resumo}					%->	Resumo
+\end{center}
+
+\end{@twocolumnfalse}]
+
+
+% ELEMENTOS TEXTUAIS =============================================================================
+
+\input{02-Elementos-textuais/01-Introducao}					%-> Introdução
+\input{02-Elementos-textuais/02-Desenvolvimento}			%-> Desenvolvimento
+\input{02-Elementos-textuais/03-Resultados}					%-> Resultados
+\input{02-Elementos-textuais/04-Consideracoes-finais}		%-> Considerações Finais
+
+
+% ELEMENTOS PÓS-TEXTUAIS =========================================================================
+
+\input{03-Elementos-pos-textuais/01-Agradecimentos}			%-> Agradecimentos
+\input{03-Elementos-pos-textuais/02-Anexo}					%-> Anexo
+\input{03-Elementos-pos-textuais/03-Referencias}			%-> Referências
+
+
+%=================================================================================================
+
+\end{document}
