@@ -20,7 +20,7 @@
 
 @article{chollet2015keras,
   title={Keras: Deep learning library for theano and tensorflow},
-  author={Chollet, Fran{\c{c}}ois and others},
+  author={Chollet, François and others},
   journal={URL: https://keras. io/k},
   volume={7},
   number={8},

@@ -1,13 +1,14 @@
 # filename: bibtex2item.py
 import sys
 
-bibtex = """ @inproceedings{freire2018analysis,
-  title={Analysis of Controlled Packet Departure to Support Ethernet Fronthaul Synchronization via PTP},
-  author={Freire, Igor and Sousa, Ilan and Bemerguy, Pedro and Klautau, Aldebaro and Almeida, Igor and Lu, Chenguang and Berg, Miguel},
-  booktitle={2018 IEEE International Symposium on Precision Clock Synchronization for Measurement, Control, and Communication (ISPCS)},
-  pages={1--6},
-  year={2018},
-  organization={IEEE}
+bibtex = """@article{chollet2015keras,
+  title={Keras: Deep learning library for theano and tensorflow},
+  author={Chollet, François and others},
+  journal={URL: https://keras. io/k},
+  volume={7},
+  number={8},
+  pages={T1},
+  year={2015}
 }
 """
 r = bibtex.split('\n')
