@@ -1,0 +1,38 @@
+@book{kovacs2002redes,
+  title={Redes neurais artificiais},
+  author={Kov{\'a}cs, Zsolt L{\'a}szl{\'o}},
+  year={2002},
+  publisher={Editora Livraria da Fisica}
+}
+
+@misc{blake1998uci,
+  title={UCI repository of machine learning databases, 1998},
+  author={Blake, Catherine L and Merz, Christopher J},
+  year={1998}
+}
+
+@article{rossum1995python,
+  title={Python reference manual},
+  author={Rossum, Guido},
+  year={1995},
+  publisher={CWI (Centre for Mathematics and Computer Science)}
+}
+
+@article{chollet2015keras,
+  title={Keras: Deep learning library for theano and tensorflow},
+  author={Chollet, Fran{\c{c}}ois and others},
+  journal={URL: https://keras. io/k},
+  volume={7},
+  number={8},
+  pages={T1},
+  year={2015}
+}
+
+
+@book{haykin1994neural,
+  title={Neural networks: a comprehensive foundation},
+  author={Haykin, Simon},
+  year={1994},
+  publisher={Prentice Hall PTR}
+}
+
