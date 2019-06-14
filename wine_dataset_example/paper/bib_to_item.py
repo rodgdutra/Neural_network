@@ -1,14 +1,14 @@
 # filename: bibtex2item.py
 import sys
 
-bibtex = """@article{chollet2015keras,
-  title={Keras: Deep learning library for theano and tensorflow},
-  author={Chollet, François and others},
-  journal={URL: https://keras. io/k},
-  volume={7},
-  number={8},
-  pages={T1},
-  year={2015}
+bibtex = """@article{pedregosa2011scikit,
+  title={Scikit-learn: Machine learning in Python},
+  author={Pedregosa, Fabian and Varoquaux, Ga{\"e}l and Gramfort, Alexandre and Michel, Vincent and Thirion, Bertrand and Grisel, Olivier and Blondel, Mathieu and Prettenhofer, Peter and Weiss, Ron and Dubourg, Vincent and others},
+  journal={Journal of machine learning research},
+  volume={12},
+  number={Oct},
+  pages={2825--2830},
+  year={2011}
 }
 """
 r = bibtex.split('\n')

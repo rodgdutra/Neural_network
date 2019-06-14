@@ -6,8 +6,14 @@ Sj = \theta *\sum_{i=0}^{m} (wij*xi+bj)
 \end{equation}
 
 Onde $\theta$ representa a função de ativação, \textit{bj} corresponde ao \textit{bias}, \textit{pij} são os pesos sinápticos[5].
-\begin{figure}
-\includegraphics[width=2in]{fig.png}
+\begin{figure}[H]
+
+\centering % para centralizarmos a figura
+\includegraphics[width=\columnwidth]{04-Figuras/fig}
+\caption{Estrutura de um neurônio artificial}
+
+\label{figura:arquitetura}
+
 \end{figure}
 De forma geral uma rede neural é constituída de unidades simples de processamento denominadas de neurônios e ligações massivas entre essas unidades.[5]
 Mais a frente nessa seção será detalhado a constituição de Redes MLP e anociassociativos competitivas
@@ -15,41 +21,72 @@ Mais a frente nessa seção será detalhado a constituição de Redes MLP e anoc
 
 \subsection{Perceptrom de Multiplas Camadas}
 
-A rede perceptron de múltiplas camadas tem como característica múltiplas camadas de neurônios conectadas entre si  
+A rede perceptron de múltiplas camadas como o próprio nome indica apresenta várias camadas em sua estrutura,tendo como composição mínima uma camada de entrada, uma camada de saída e uma camada intermediária. Segundo o modelo descrito por [5], essas camadas são ligadas por sinapses com pesos(\textit{pij}) intrínsecos, assim compondo uma rede vasta de interconexões regidas por pesos e funções de ativação.
+\begin{figure}[H]
 
-\subsection{Algoritmo Backpropagation}
+\centering % para centralizarmos a figura
+\includegraphics[width=\columnwidth]{04-Figuras/MLP}
+\caption{Estrutura de um neurônio artificial}
 
-Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio urna, tempus molestie, porttitor ut, iaculis quis, sem. Phasellus rhoncus. Aenean id metus id velit ullamcorper pulvinar. Vestibulum fermentum tortor id mi. Pellentesque ipsum. Nulla non arcu lacinia neque faucibus fringilla. Nulla non lectus sed nisl molestie malesuada. Proin in tellus sit amet nibh dignissim sagittis. Vivamus luctus egestas leo. Maecenas sollicitudin. Nullam rhoncus aliquam metus. Etiam egestas wisi a erat.
+\label{figura:Arquitetura de uma rede MLP}
 
-Maecenas ipsum velit, consectetuer eu, lobortis ut, dictum at, dui. In rutrum. Sed ac dolor sit amet purus malesuada congue. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Suspendisse sagittis ultrices augue. Mauris metus. Nunc dapibus tortor vel mi dapibus sollicitudin. Etiam posuere lacus quis dolor. Praesent id justo in neque elementum ultrices. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. In convallis. Fusce suscipit libero eget elit. Praesent vitae arcu tempor neque lacinia pretium. Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus.
+\end{figure}
 
+O aprendizado da MLP consiste em 2 passos, o passo direto e o passo inverso. O passo direto ou \textit{forward pass} consiste em passar as entradas pela rede, assim aplicando os pesos associados as sinapses, e obtendo assim a saída. O segundo passo consiste na retropropagação do erro, é calculado o gradiente da função de perda na camada de saída, posteriormente esse gradiente é utilizado para aplicar recursivamente a regra da cadeia para atualizar os pesos de toda a rede.
+Esse algorítimo é chamado de \textit{backpropagation}[1].
 
-Aenean placerat. In vulputate urna eu arcu. Aliquam erat volutpat. Suspendisse potenti. Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere. Nullam lectus justo, vulputate eget, mollis sed, tempor sed, magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam neque. Curabitur ligula sapien, pulvinar a, vestibulum quis, facilisis vel, sapien. Nullam eget nisl. Donec vitae arcu.
+\subsection{Redes Autoassociativas competitivas}
+Redes neurais do tipo autoassociativas ou \textit{autoencoders} baseiam-se em MPL que apresentam o mesmo número de neurônios na camada de entrada e na camada de saída, a camada intermediária apresenta um número inferior de neuronios em relação as outras duas camadas. 
 
-Maecenas ipsum velit, consectetuer eu, lobortis ut, dictum at, dui. In rutrum. Sed ac dolor sit amet purus malesuada congue. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Suspendisse sagittis ultrices augue. Mauris metus. Nunc dapibus tortor vel mi dapibus sollicitudin. Etiam posuere lacus quis dolor. Praesent id justo in neque elementum ultrices. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. In convallis. Fusce suscipit libero eget elit. Praesent vitae arcu tempor neque lacinia pretium. Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus.
+A estrutura da camada de entrada juntamente com a camada intermediária funcionam como um encoder, também chamada de gargalo, comprime a informação inserida na entrada. 
 
-Aenean placerat. In vulputate urna eu arcu. Aliquam erat volutpat. Suspendisse potenti. Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere. Nullam lectus justo, vulputate eget, mollis sed, tempor sed, magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam neque. Curabitur ligula sapien, pulvinar a, vestibulum quis, facilisis vel, sapien. Nullam eget nisl. Donec vitae arcu.
+A estrutura de saída juntamente com a camada intermediária funciona como um decoder, descomprimindo a informação obtida da camada intermediária.Dessa maneira, a rede  tenta recriar os dados que foram inseridos na entrada[6].
+\begin{figure}[H]
 
-Morbi a metus. Phasellus enim erat, vestibulum vel, aliquam a, posuere eu, velit. Nullam sapien sem, ornare ac, nonummy non, lobortis a, enim. Nunc tincidunt ante vitae massa. Duis ante orci, molestie vitae, vehicula venenatis, tincidunt ac, pede. Nulla accumsan, elit sit amet varius semper, nulla mauris mollis quam, tempor suscipit diam nulla vel leo. Etiam commodo dui eget wisi. Donec iaculis gravida nulla. Donec quis nibh at felis congue commodo. Etiam bibendum elit eget erat.
+\centering % para centralizarmos a figura
+\includegraphics{04-Figuras/autoencoder}
+\caption{Estrutura de rede autoencoder}
 
-Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio urna, tempus molestie, porttitor ut, iaculis quis, sem. Phasellus rhoncus. Aenean id metus id velit ullamcorper pulvinar. Vestibulum fermentum tortor id mi. Pellentesque ipsum. Nulla non arcu lacinia neque faucibus fringilla. Nulla non lectus sed nisl molestie malesuada. Proin in tellus sit amet nibh dignissim sagittis. Vivamus luctus egestas leo. Maecenas sollicitudin. Nullam rhoncus aliquam metus. Etiam egestas wisi a erat.
+\label{figura:arquitetura}
+
+\end{figure}
+
+A estrutura competitiva baseia-se em criar e treinar um numero de redes autoencoders igual ao número de classes do problema de classificação, de forma a criar redes especializadas em recriar os dados de entrada de inseridos para cada classe. Dessa forma, as redes treinadas para uma dada classe irão apresentar um erro médio quadrático menor ao serem inseridos dados da classe a qual foram treinadas.
+
+Após o treinamento essas redes são colocadas lado a lado, recebendo as mesmas entradas e tentando recria-las. Mede-se o erro quadrático médio de cada rede para cada índice de entrada, os valores de erro são avaliados e infere-se a classe de saída correspondente a rede que apresentou o menor erro na recriação dos dados de entrada[6].Dessa maneira as redes competem entre si para assim gerar um valor de classe na saída.
+
 
 %=================================================================================================
-\section{Desenvolvimento da Aplicação}
+\section{Banco de Dados}
 
-Maecenas ipsum velit, consectetuer eu, lobortis ut, dictum at, dui. In rutrum. Sed ac dolor sit amet purus malesuada congue. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Suspendisse sagittis ultrices augue. Mauris metus. Nunc dapibus tortor vel mi dapibus sollicitudin. Etiam posuere lacus quis dolor. Praesent id justo in neque elementum ultrices. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. In convallis. Fusce suscipit libero eget elit. Praesent vitae arcu tempor neque lacinia pretium. Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus.
+A base de banco de dados de vinho selecionada para a produção desse artigo foram resultados de uma análise química de vinhos cultivados na mesma região da Itália,mas derivados de três diferentes cultivares[2].
 
+Os atributos de entrada da rede são Álcool, Acido málico, Cinzas,Alcalinidade das cinzas , Magnésio,Fenóis totais,Flavonoides,Fenóis não flavonoides,Proantocianidinas,Intensidade da cor, tonalidade,OD280 / OD315 de vinhos diluídos e Prolina.
 
-\subsection{Ambiente da Aplicação}
+A base de dados foi organizada de forma que cada grupo de 13 variável tem um índex associado e uma classe correspondente.
 
-Aenean placerat. In vulputate urna eu arcu. Aliquam erat volutpat. Suspendisse potenti. Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere. Nullam lectus justo, vulputate eget, mollis sed, tempor sed, magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam neque. Curabitur ligula sapien, pulvinar a, vestibulum quis, facilisis vel, sapien. Nullam eget nisl. Donec vitae arcu.
+\input{05-Tabelas/wine_table}
 
+ A divisão da base de dados em dados de treino, validação e teste foi realizada com a biblioteca Scikit[7], a qual randomiza a seleção de índex para a divisão do banco de dados em dada proporção previamente programada. A proporção utilizada para a divisão consta na Tabela 2.
 
-\subsection{Base de Dados}
+\input{05-Tabelas/treino_val_test}
+ 
+%=================================================================================================
+\section{Desenvolvimento da Rede MLP}
+A rede MLP foi desenvolvida em Python[3] com o auxilio da bibliotecas Keras[4].A divisão de dados em treino validação e teste foi seguido como está proposto na Tabela 2, e apesar de que a escolha dos índex de conjunto de entradas é feito de forma randômica, foi fixado duma \textit{seed} na biblioteca Scikit[7], de forma a sempre ser executada a mesma divisão de dados.
 
-Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio urna, tempus molestie, porttitor ut, iaculis quis, sem. Phasellus rhoncus. Aenean id metus id velit ullamcorper pulvinar. Vestibulum fermentum tortor id mi. Pellentesque ipsum. Nulla non arcu lacinia neque faucibus fringilla. Nulla non lectus sed nisl molestie malesuada. Proin in tellus sit amet nibh dignissim sagittis. Vivamus luctus egestas leo. Maecenas sollicitudin. Nullam rhoncus aliquam metus. Etiam egestas wisi a erat.
+A estrutura da rede apresenta 3 camadas, na camada de entrada exite 13 neurônios para receber os dados, a camada de saída dispõe de apenas 1 neurônio. Para definir o numero optimo de neurônios na camada intermediária foi realizado um levantamento da acurácia com relação a esse numero.
 
+\begin{figure}[H]
+\centering % para centralizarmos a figura
+\includegraphics[width=\columnwidth]{04-Figuras/acuracia}
+\caption{Acurácia vs Nº de neurônios na camada escondida}
+\label{figura:acuracia}
+\end{figure}
 
-\subsection{Parâmetros de Classificação}
+Depois de definido o número de neurônios da camada escondida, os dados utilizados no treino validação e  teste foram normalizados, de forma que cada coluna dos 13 atributos foi duvidida pelo maior número da coluna.
 
-Aenean placerat. In vulputate urna eu arcu. Aliquam erat volutpat. Suspendisse potenti. Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere. Nullam lectus justo, vulputate eget, mollis sed, tempor sed, magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam neque. Curabitur ligula sapien, pulvinar a, vestibulum quis, facilisis vel, sapien. Nullam eget nisl. Donec vitae arcu.
+A função de ativação da camada escondida foi a \textit{sigmoid}, e a função de ativação da camada de saída foi linear, a escolha das funções foi feita depois de vários testes de desempenho relacionando o erro com a função de ativação escolhida.
+
+A saída da rede foi arredondada para o inteiro mais próximo, por conta que o este tratava-se de um número fracionário.Dessa forma, após arredondar o valor de saída se enquadra em alguma das 3 classes presentes no banco de dados.
+ 

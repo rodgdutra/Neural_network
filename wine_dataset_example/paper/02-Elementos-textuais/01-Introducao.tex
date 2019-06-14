@@ -5,7 +5,7 @@
 \section{Introdução}
 As Redes Neurais Artificiais (RNA) tratam-se de modelos matemáticos construídos a partir do conhecimento do neurônio biológico, tendo como objetivo mimetizar o comportamento da células nervosa \cite{ref1} . Assim, simulando a característica de um sistema nervoso, de forma a ter capacidade de processar múltiplas entradas, reconhecer e classificar padrões. Dessa forma, RNA tem grande capacidade de aplicação em vários tipos de contexto.
 
-A aplicação proposta nesse artigo trata-se de classificação de tipos de vinho. O banco de dados utilizado foi retirado de \textit{UCI machine learning repository}[2].Esse banco é composto de 179 amostras de 13 atributos de entrada distribuídos em 3 classes, as quais são o tipo de vinho dado a combinação dos valores dos 13  atributos: Álcool, Acido málico, Cinzas,Alcalinidade das cinzas , Magnésio,Fenóis totais,Flavonóides,Fenóis não flavonoides,Proantocianidinas,Intensidade da cor, tonalidade,OD280 / OD315 de vinhos diluídos e Prolina.Esses dados foram resultados de uma análise química de vinhos cultivados na mesma região da Itália,mas derivados de três diferentes cultivares.
+A aplicação proposta nesse artigo trata-se de classificação de tipos de vinho. O banco de dados utilizado foi retirado de \textit{UCI machine learning repository}[2].Esse banco é composto de 179 amostras de 13 atributos de entrada distribuídos em 3 classes, as quais são o tipo de vinho dado a combinação dos valores dos 13  atributos de entrada.
 
 Dessa maneira tendo-se em vista a o conjunto de dados de dados aplicado, foram aplicadas 2 topologias distintas de RNA no problema de classificação proposto, com o intuito de compara-las em termos de acurácia e desempenho. As topologias utilizadas foram rede do tipo MLP e autoassociativa competitiva, as quais serão discutidas e analisadas e caracterizadas mais adiante nesse artigo.
 
@@ -17,11 +17,9 @@ Para o fim proposto, foi usado o Software Python(3.65)[3] juntamente com a bibli
 
 \subsection{Objetivos}
 
-Como objetivo geral, este trabalho implementa duas arquiteturas de Redes Neurais Artificiais para a classificação de três classes de vinho a partir dos 13 parâmetros de entrada. A primeira arquitetura é uma RNA de Múltiplas Camadas (MPL) e a segunda, a uma MPL com estrutura Competitiva Autoassociativa.
-
-Enquanto que o objetivo específico é averiguar e comparar a melhor arquitetura de rede para o problema de classificação proposto.
+O objetivo desse trabalho é primeiramente validar as topologias de redes apresentadas neste, aplicando-as em um problema de classificação.Feito isso, o trabalho também tem como objetivo comparar o desempenho das 2 estruturas de RNA para  o problema proposto.
 
 
 \subsection{Organização do Trabalho}
 
-Este artigo está organizado como se segue. No ceção 2 é apresentado a arquitetura de rede e por quais metodologias este trabalho se orienta. Os resultados são apresentados no capítulo 3. No capítulo 4, as considerações finais desde trabalho.
+A organização do artigo foi estruturado da seguinte forma: Na seção 2 encontra-se a base teórica de RNA e a apresentação dos 2 modelos utilizados; A seção 3 detalha o banco de dados e seu uso dentro do artigo;A seção 4 detalha o desenvolvimento e aplicação da MLP;A seção 5 detalha o desenvolvimento e aplicação da rede autoencoder competitiva;A seção 6 apresenta os resultados; A seção 7 dispoe a conclusão. 

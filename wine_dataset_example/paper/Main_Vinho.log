@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.11)  13 JUN 2019 15:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.11)  14 JUN 2019 01:18
 entering extended mode
 **./Main_Vinho.tex
 (Main_Vinho.tex
@@ -320,7 +320,11 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
 Package: cite 2015/02/27  v 5.5
-) (00-Setup/01-Setup.tex) (Main_Vinho.aux)
+) (00-Setup/01-Setup.tex) (Main_Vinho.aux
+
+LaTeX Warning: Label `figura:arquitetura' multiply defined.
+
+)
 \openout1 = `Main_Vinho.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
@@ -508,11 +512,6 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <11.04124> not available
 LaTeX Font Info:    Font shape `T1/phv/bx/sc' in size <11.04124> not available
 (Font)              Font shape `T1/phv/b/sc' tried instead on input line 5.
 
-Underfull \hbox (badness 1389) in paragraph at lines 8--9
-\T1/ppl/m/n/9.53561 banco é com-posto de 179 amos-tras de 13 atri-bu-tos
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 15--16
 []\T1/ppl/m/n/9.53561 Para o fim pro-posto, foi usado o Soft-ware
  []
@@ -522,62 +521,96 @@ Underfull \hbox (badness 1715) in paragraph at lines 15--16
 \T1/ppl/m/n/9.53561 Python(3.65)[3] jun-ta-mente com a bi-bli-o-teca Ke-ras[4]
  []
 
-
-Underfull \vbox (badness 1888) has occurred while \output is active []
-
-)
-(02-Elementos-textuais/02-Desenvolvimento.tex [1{C:/Users/Rodrigo/AppData/Local
-/MiKTeX/2.9/pdftex/config/pdftex.map}
+) (02-Elementos-textuais/02-Desenvolvimento.tex [1{C:/Users/Rodrigo/AppData/Loc
+al/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
 ]
+<04-Figuras/fig.png, id=16, 505.89pt x 373.395pt>
+File: 04-Figuras/fig.png Graphic file (type png)
+<use 04-Figuras/fig.png>
+Package pdftex.def Info: 04-Figuras/fig.png  used on input line 12.
+(pdftex.def)             Requested size: 247.53899pt x 182.70876pt.
+<04-Figuras/MLP.jpg, id=17, 363.3575pt x 250.9375pt>
+File: 04-Figuras/MLP.jpg Graphic file (type jpg)
+<use 04-Figuras/MLP.jpg>
+Package pdftex.def Info: 04-Figuras/MLP.jpg  used on input line 28.
+(pdftex.def)             Requested size: 247.53899pt x 170.95686pt.
+<04-Figuras/autoencoder.png, id=18, 164.86594pt x 188.20313pt>
+File: 04-Figuras/autoencoder.png Graphic file (type png)
+<use 04-Figuras/autoencoder.png>
+Package pdftex.def Info: 04-Figuras/autoencoder.png  used on input line 47.
+(pdftex.def)             Requested size: 164.86551pt x 188.20265pt.
 
-LaTeX Warning: File `fig.png' not found on input line 10.
+Underfull \hbox (badness 5862) in paragraph at lines 64--65
+[]\T1/ppl/m/n/9.53561 Os atri-bu-tos de en-trada da rede são Ál-cool,
+ []
 
 
-! Package pdftex.def Error: File `fig.png' not found: using draft setting.
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+\T1/ppl/m/n/9.53561 Acido má-lico, Cin-zas,Alcalinidade das cin-zas
+ []
 
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.10 \includegraphics[width=2in]{fig.png}
-                                         
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
 
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 10.
-("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\t1pcr.fd"
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [2])
-(02-Elementos-textuais/03-Resultados.tex)
-(02-Elementos-textuais/04-Consideracoes-finais.tex [3])
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+\T1/ppl/m/n/9.53561 , Mag-né-sio,Fenóis to-tais,Flavonoides,Fenóis não
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+\T1/ppl/m/n/9.53561 fla-vo-noi-des,Proantocianidinas,Intensidade da cor,
+ []
+
+[2 <./04-Figuras/fig.png (PNG copy)> <./04-Figuras/MLP.jpg> <./04-Figuras/autoe
+ncoder.png>] (05-Tabelas/wine_table.tex
+LaTeX Font Info:    Calculating math sizes for size <8.03> on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8.03> on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5.62097> on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <4.015> on input line 4.
+) (05-Tabelas/treino_val_test.tex)
+<04-Figuras/acuracia.png, id=28, 377.2494pt x 315.8199pt>
+File: 04-Figuras/acuracia.png Graphic file (type png)
+<use 04-Figuras/acuracia.png>
+Package pdftex.def Info: 04-Figuras/acuracia.png  used on input line 82.
+(pdftex.def)             Requested size: 247.53899pt x 207.23701pt.
+)
+(02-Elementos-textuais/03-Resultados.tex [3 <./04-Figuras/acuracia.png>])
+(02-Elementos-textuais/04-Consideracoes-finais.tex)
 (03-Elementos-pos-textuais/01-Agradecimentos.tex)
 (03-Elementos-pos-textuais/02-Anexo.tex)
-(03-Elementos-pos-textuais/03-Referencias.tex) [4] (Main_Vinho.aux) ) 
+(03-Elementos-pos-textuais/03-Referencias.tex [4]) [5
+
+] (Main_Vinho.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 5424 strings out of 492895
- 86683 string characters out of 3133473
- 172409 words of memory out of 3000000
- 9060 multiletter control sequences out of 15000+200000
- 89735 words of font info for 131 fonts, out of 3000000 for 9000
+ 5463 strings out of 492895
+ 87750 string characters out of 3133473
+ 173492 words of memory out of 3000000
+ 9077 multiletter control sequences out of 15000+200000
+ 93269 words of font info for 133 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,7n,37p,956b,337s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Progra
-m Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.p
-fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/
-uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:
-/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on Main_Vinho.pdf (4 pages, 154841 bytes).
+ 41i,15n,37p,956b,337s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/P
+rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program F
+iles/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/u
+plr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on Main_Vinho.pdf (5 pages, 253262 bytes).
 PDF statistics:
- 73 PDF objects out of 1000 (max. 8388607)
+ 82 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+
