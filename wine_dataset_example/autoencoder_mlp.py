@@ -12,7 +12,7 @@ import matplotlib
 
 
 class Auto_associative_mlp():
-	def __init__(self,data_csv='wine2.csv'):
+	def __init__(self,h_n=5,data_csv='wine2.csv'):
 		self.load_data(data_csv)
 		self.norm_dataset(0,13)
 		self.X = self.dataset[:,0:13].astype(float)
@@ -21,9 +21,9 @@ class Auto_associative_mlp():
 		self.X2,self.Y2 = self.split_class_dataset(59,130)
 		self.X3,self.Y3 = self.split_class_dataset(130,178)
 
-		self.model1 = self.baseline_model()
-		self.model2 = self.baseline_model(h_layers=5,dec_act='linear')
-		self.model3 = self.baseline_model()
+		self.model1 = self.baseline_model(h_n=h_n)
+		self.model2 = self.baseline_model(h_n=h_n,dec_act='linear')
+		self.model3 = self.baseline_model(h_n=h_n)
 
 		self.split_dataset('1')
 		self.split_dataset('2')
@@ -41,10 +41,10 @@ class Auto_associative_mlp():
 		Y_i = self.dataset[start:end][:,13:15]
 		return X_i,Y_i
 
-	def baseline_model(self,h_layers=5,dec_act='sigmoid'):
+	def baseline_model(self,h_n=5,dec_act='sigmoid'):
 		# create model
 		model = Sequential()
-		model.add(Dense(h_layers, input_dim=13, activation=dec_act))
+		model.add(Dense(h_n, input_dim=13, activation=dec_act))
 		model.add(Dense(13, activation='linear'))
 		rms_prop = keras.optimizers.RMSprop(lr=1, rho=0.9, epsilon=None, decay=0)
 		adam = keras.optimizers.Adam(lr=0.045, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
@@ -91,7 +91,7 @@ class Auto_associative_mlp():
 		X_train = np.concatenate((self.X_train1,self.X_train2,self.X_train3))
 		X_val   = np.concatenate((self.X_val1,self.X_val2,self.X_val3))
 		X_test  = np.concatenate((self.X_test1,self.X_test2,self.X_test3))
-
+		self.X_test = X_test
 		Y_train = np.concatenate((self.Y_train1,self.Y_train2,self.Y_train3))
 		Y_val   = np.concatenate((self.Y_val1,self.Y_val2,self.Y_val3))
 		Y_test  = np.concatenate((self.Y_test1,self.Y_test2,self.Y_test3))
@@ -103,8 +103,9 @@ class Auto_associative_mlp():
 		model.fit(X,Y,
 				  validation_data=(X_val,Y_val),
 				  batch_size=200,
-				  epochs=3000,
-				  shuffle=False)
+				  epochs=2000,
+				  shuffle=False,
+				  verbose=0)
 
 	def train_procedure(self,id_i):
 		model  = getattr(self,'model'+id_i)
@@ -116,10 +117,13 @@ class Auto_associative_mlp():
 						   val,
 						   val)
 
-	def score(self,model,id,X_test,Y_test):
-		scores = model.evaluate(X_test,Y_test)
-		# evaluate the model
-		print("error %f" %scores[0])
+	def score(self):
+		score  = list()
+		score.append(self.model1.evaluate(self.X_test1,self.X_test1)[0])
+		score.append(self.model2.evaluate(self.X_test2,self.X_test2)[0])
+		score.append(self.model3.evaluate(self.X_test3,self.X_test3)[0])
+
+		return score
 
 	def model_out(self):
 		print("")
@@ -174,22 +178,28 @@ class Auto_associative_mlp():
 		error = error.values
 
 		if test == True:
-			plt.figure()
-			plt.plot(error_1,'r',label='Erro classe 1')
+			xt1 = np.arange(0,12)
+			xt2 = np.arange(12,25)
+			xt3 = np.arange(25,36)
+			plt.plot(error_1,'b',marker='v',label='Erro RNA 1')
+			x1 = np.arange(0,11)
+			plt.plot(xt1,error_1[0:12],'r.',label='teste classe 1')
+			plt.plot(xt2,error_1[12:25],'g.',label='teste classe 2')
+			plt.plot(xt3,error_1[25:36],'c.',label='teste classe 3')
 			plt.legend()
 			plt.ylabel('Erro quadrático médio')
 			plt.xlabel('Index de teste')
 			plt.grid()
 			plt.savefig('plots/Erro_classe1_auto.png')
 			plt.figure()
-			plt.plot(error_2,'b',label='Erro classe 2')
+			plt.plot(error_2,'b',label='Erro RNA 2')
 			plt.legend()
 			plt.ylabel('Erro quadrático médio')
 			plt.xlabel('Index de teste')
 			plt.grid()
 			plt.savefig('plots/Erro_classe2_auto.png')
 			plt.figure()
-			plt.plot(error_3,'g',label='Erro classe 3')
+			plt.plot(error_3,'g',label='Erro RNA 3')
 			plt.legend()
 			plt.ylabel('Erro quadrático médio')
 			plt.xlabel('Index de teste')

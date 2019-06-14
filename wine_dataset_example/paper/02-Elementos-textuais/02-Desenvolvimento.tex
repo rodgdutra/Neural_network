@@ -86,7 +86,15 @@ A estrutura da rede apresenta 3 camadas, na camada de entrada exite 13 neurônio
 
 Depois de definido o número de neurônios da camada escondida, os dados utilizados no treino validação e  teste foram normalizados, de forma que cada coluna dos 13 atributos foi duvidida pelo maior número da coluna.
 
-A função de ativação da camada escondida foi a \textit{sigmoid}, e a função de ativação da camada de saída foi linear, a escolha das funções foi feita depois de vários testes de desempenho relacionando o erro com a função de ativação escolhida.
+A função de ativação da camada escondida escolhida foi \textit{sigmoid},a função de ativação da camada de saída foi linear, a escolha das funções foi feita depois de vários testes de desempenho relacionando o erro com a função de ativação escolhida.
 
 A saída da rede foi arredondada para o inteiro mais próximo, por conta que o este tratava-se de um número fracionário.Dessa forma, após arredondar o valor de saída se enquadra em alguma das 3 classes presentes no banco de dados.
- 
+
+\section{Desenvolvimento da Rede Autoencoder competitiva}
+Assim como a Rede MLP, a autoencoder competitiva foi deselvolvida utilizando os mesmo software e bibliotecas.A divisão dos dados de entrada em treino validação e teste ocorreu de forma idêntica a rede MLP construida anteriormente.
+
+Feito a divisão de dados de treino de todas as 3 classes, essa foram criadas 3 MLP conectadas de forma competitiva[6]. Essas redes contavam com 13 neurônios na camada inicial e na camada de saída, na camada intermediária foi executado a análise do número de neurônios versus a acurácia total da rede competitiva para descobrir o valor ideal de neurônios na camada intermediária.
+
+\input{05-Tabelas/acc_auto_mlp}
+
+A função de ativação escolhida visando a maior acurácia da rede foi linear tanto na camada escondida quanto na camada de saída.

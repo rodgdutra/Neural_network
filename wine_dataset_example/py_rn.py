@@ -37,7 +37,7 @@ def auto_mlp_test():
 	plt.grid()
 	plt.legend()
 
-def train_score_routine(mlp):
+def train_score_routine(mlp,X,X_train,X_val,X_test,Y,Y_train,Y_val,Y_test):
 	h_n = [1,5,10,15,30,60,120,240,480]
 	rep = 7
 	error = list()
@@ -66,9 +66,39 @@ def train_score_routine(mlp):
 		print("Tabela")
 		pprint(table)
 
+def train_score_automlp():
+	h_n = [1,4,8,12]
+	error = list()
+	h_ni  = list()
+	rep = 10
+	for i in h_n:
+		acc_100 = 0
+		for j in range(0,rep):
+			auto_mlp = Auto_associative_mlp(h_n=i)
+			auto_mlp.train_procedure('1')
+			auto_mlp.train_procedure('2')
+			auto_mlp.train_procedure('3')
+			X,X_train,X_val,X_test,Y,Y_train,Y_val,Y_test = auto_mlp.get_data()
+			id_test, test = auto_mlp.total_out(test=True)
+			ej = np.subtract(Y_test[:,0],test)
+			total = len(Y_test[:,0])
+			acc = len(np.where(ej == 0)[0])
+			acc_100 += acc*100.0/total
+
+		error.append(acc_100/rep)
+		h_ni.append(i)
+	table = list()
+	table.append(error)
+	table.append(h_ni)
+	table = pd.DataFrame(table)
+	table.append(error)
+	table = table.transpose()
+	table = table.values
+	print("Tabela")
+	pprint(table)
 def compare_nets():
 
-	auto_mlp = Auto_associative_mlp()
+	auto_mlp = Auto_associative_mlp(h_n=4)
 	auto_mlp.train_procedure('1')
 	auto_mlp.train_procedure('2')
 	auto_mlp.train_procedure('3')
@@ -99,6 +129,7 @@ def main():
 	#auto_mlp_test()
 	#plt.show()
 	compare_nets()
+	#train_score_automlp()
 if __name__ == '__main__':
 	main()
 
@@ -109,7 +140,13 @@ array([[  0.59126984,   1.        ],
        [  0.92857143,  15.        ],
        [  0.93650794,  30.        ],
        [  0.94444444,  60.        ],
-       [  0.94444444, 120.        ],
        [  0.9484127 , 240.        ],
        [  0.94047619, 480.        ]])
+"""
+"""
+Tabela
+array([[ 94.44444444,   1.        ],
+       [100.        ,   4.        ],
+       [ 91.11111111,   8.        ],
+       [ 69.16666667,  12.        ]])
 """
