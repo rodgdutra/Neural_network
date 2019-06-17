@@ -8,7 +8,7 @@ from pprint import pprint
 import time
 #matplotlib.style.use('classic')
 
-def backprop_test():
+def standard_mlp():
 	mlp = MLP()
 	mlp.split_data()
 	mlp.train_and_val()
@@ -38,7 +38,7 @@ def auto_mlp_test():
 	plt.grid()
 	plt.legend()
 
-def train_score_routine():
+def train_score_auto_mlp():
 	h_n = [240]
 	rep = 10
 	error = list()
@@ -103,6 +103,7 @@ def train_score_automlp():
 	table = table.values
 	print("Tabela")
 	pprint(table)
+
 def compare_nets():
 	start = time.time()
 	auto_mlp = Auto_associative_mlp(h_n=4)
@@ -152,29 +153,7 @@ def compare_nets():
 	plt.savefig('plots/saida_comparativa.png')
 
 def main():
-	#backprop_test()
-	#auto_mlp_test()
-	#plt.show()
 	compare_nets()
-	#train_score_automlp()
-	#train_score_routine()
+
 if __name__ == '__main__':
 	main()
-
-"""
-array([[  0.59126984,   1.        ],
-       [  0.91269841,   5.        ],
-       [  0.92460317,  10.        ],
-       [  0.92857143,  15.        ],
-       [  0.93650794,  30.        ],
-       [  0.94444444,  60.        ],
-       [  0.9484127 , 240.        ],
-       [  0.94047619, 480.        ]])
-"""
-"""
-Tabela
-array([[ 94.44444444,   1.        ],
-       [100.        ,   4.        ],
-       [ 91.11111111,   8.        ],
-       [ 69.16666667,  12.        ]])
-"""

@@ -20,7 +20,7 @@ De forma geral uma rede neural é constituída de unidades simples de processame
 Mais a frente nessa seção será detalhado a constituição de Redes MLP e anociassociativos competitivas
 
 
-\subsection{Perceptrom de Multiplas Camadas}
+\subsection{Perceptrom de Múltiplas Camadas}
 A rede perceptron de múltiplas camadas como o próprio nome indica apresenta várias camadas em sua estrutura,tendo como composição mínima uma camada de entrada, uma camada de saída e uma camada intermediária. Segundo o modelo descrito por [5], essas camadas são ligadas por sinapses com pesos(\textit{pij}) intrínsecos, assim compondo uma rede vasta de interconexões regidas por pesos e funções de ativação.
 \begin{figure}[H]
 
@@ -32,11 +32,11 @@ A rede perceptron de múltiplas camadas como o próprio nome indica apresenta v�
 
 \end{figure}
 
-O aprendizado da MLP consiste em 2 passos, o passo direto e o passo inverso. O passo direto ou \textit{forward pass} consiste em passar as entradas pela rede, assim aplicando os pesos associados as sinapses, e obtendo assim a saída. O segundo passo consiste na retropropagação do erro, é calculado o gradiente da função de perda na camada de saída, posteriormente esse gradiente é utilizado para aplicar recursivamente a regra da cadeia para atualizar os pesos de toda a rede.
+O aprendizado da MLP consiste em 2 passos, o passo direto e o passo inverso. O passo direto ou \textit{forward pass} consiste em passar as entradas pela rede, assim aplicando os pesos associados as sinapses, e obtendo assim a saída. O segundo passo consiste na retro propagação do erro, é calculado o gradiente da função de perda na camada de saída, posteriormente esse gradiente é utilizado para aplicar recursivamente a regra da cadeia para atualizar os pesos de toda a rede.
 Esse algorítimo é chamado de \textit{backpropagation}[1].
 
 \subsection{Redes Autoassociativas competitivas}
-Redes neurais do tipo autoassociativas ou \textit{autoencoders} baseiam-se em MPL que apresentam o mesmo número de neurônios na camada de entrada e na camada de saída, a camada intermediária apresenta um número inferior de neuronios em relação as outras duas camadas. 
+Redes neurais do tipo autoassociativas ou \textit{autoencoders} baseiam-se em MPL que apresentam o mesmo número de neurônios na camada de entrada e na camada de saída, a camada intermediária apresenta um número inferior de neurônios em relação as outras duas camadas. 
 
 A estrutura da camada de entrada juntamente com a camada intermediária funcionam como um encoder, também chamada de gargalo, comprime a informação inserida na entrada. 
 
@@ -72,7 +72,7 @@ A base de dados foi organizada de forma que cada grupo de 13 variável tem um í
  
 %=================================================================================================
 \section{Desenvolvimento da Rede MLP}
-A rede MLP foi desenvolvida em Python[3] com o auxilio da bibliotecas Keras[4].A divisão de dados em treino validação e teste foi seguido como está proposto na Tabela 2, e apesar de que a escolha dos índex de conjunto de entradas é feito de forma randômica, foi fixado duma \textit{seed} na biblioteca Scikit[7], de forma a sempre ser executada a mesma divisão de dados.
+A rede MLP foi desenvolvida em Python[3] com o auxilio da bibliotecas Keras[4].A divisão de dados em treino validação e teste foi seguido como está proposto na Tabela 2, e apesar de que a escolha dos índex de conjunto de entradas é feito de forma randômica, foi fixado uma \textit{seed} na biblioteca Scikit[7], de forma a sempre ser executada a mesma divisão de dados.
 
 A estrutura da rede apresenta 3 camadas, na camada de entrada exite 13 neurônios para receber os dados, a camada de saída dispõe de apenas 1 neurônio. Para definir o numero óptimo de neurônios na camada intermediária foi realizado um levantamento da acurácia com relação a esse numero.
 
