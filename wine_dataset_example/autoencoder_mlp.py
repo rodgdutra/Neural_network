@@ -10,7 +10,6 @@ from pprint import pprint
 import matplotlib.pyplot as plt
 import matplotlib
 
-
 class Auto_associative_mlp():
 	def __init__(self,h_n=5,data_csv='wine2.csv'):
 		self.load_data(data_csv)
