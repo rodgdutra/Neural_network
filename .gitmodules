@@ -1,0 +1,3 @@
+[submodule "wine_dataset_example/TensorAnfis"]
+	path = wine_dataset_example/TensorAnfis
+	url = https://github.com/tiagoCuervo/TensorANFIS.git

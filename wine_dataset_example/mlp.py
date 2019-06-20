@@ -34,6 +34,7 @@ class MLP():
 		dataframe = pd.read_csv(data_csv, header=None)
 		self.dataset = dataframe.values
 		self.X = self.dataset[:,0:13].astype(float)
+		print(self.X.shape)
 		self.Y = self.dataset[:,13:15]
 
 	def baseline_model(self,h_n):
