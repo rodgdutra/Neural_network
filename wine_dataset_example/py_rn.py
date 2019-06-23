@@ -4,6 +4,7 @@ from mlp import MLP
 import numpy as np
 import pandas as pd
 from autoencoder_mlp import Auto_associative_mlp
+from anfis_net import Anfis_net
 from pprint import pprint
 import time
 #matplotlib.style.use('classic')
@@ -104,6 +105,41 @@ def train_score_automlp():
 	print("Tabela")
 	pprint(table)
 
+def train_score_anfis():
+	h_n = [1,5,10,15,30,60,120,240,480]
+	rep = 10
+	error = list()
+	h_ni  = list()
+	auto_mlp = Auto_associative_mlp(h_n=5)
+	X,X_train,X_val,X_test,Y,Y_train,Y_val,Y_test = auto_mlp.get_data()
+	for i in h_n:
+		ej = 0
+		acc_100 =0
+		for j in range(0,rep):
+			anfis_wine = None
+			anfis_wine = Anfis_net(set_data=True,norm=False)
+			anfis_wine.set_data(X,X_train,X_val,X_test,Y,Y_train,Y_val,Y_test)
+			anfis_wine.baseline_model(i)
+			anfis_wine.train_and_val()
+
+			ej = np.subtract(anfis_wine.Y_test[:,0],
+							 np.transpose(anfis_wine.pred))
+			total = len(Y_test[:,0])
+			acc = len(np.where(ej == 0)[0])
+			print(i)
+			acc_100 += acc*100.0/total
+		error.append(acc_100/rep)
+		h_ni.append(i)
+	table = list()
+	table.append(error)
+	table.append(h_ni)
+	table = pd.DataFrame(table)
+	table.append(error)
+	table = table.transpose()
+	table = table.values
+	print("Tabela")
+	pprint(table)
+
 def compare_nets():
 	start = time.time()
 	auto_mlp = Auto_associative_mlp(h_n=4)
@@ -122,8 +158,32 @@ def compare_nets():
 	mlp.total_output()
 	mlp.score()
 	tempo2 = time.time()- start
+	anfis_wine = Anfis_net(set_data=True,norm=False)
+	anfis_wine.set_data(X,X_train,X_val,X_test,Y,Y_train,Y_val,Y_test)
+	anfis_wine.baseline_model(240)
+	anfis_wine.train_and_val()
+
 	print(tempo1)
 	print(tempo2)
+	plt.figure()
+	plt.subplot(2, 1, 1)
+	plt.plot(anfis_wine.Y_test[:,1],anfis_wine.pred,'r^',label='ANFIS')
+	plt.plot(anfis_wine.Y_test[:,1],anfis_wine.Y_test[:,0],'b.',label='Classe real correspondente')
+	plt.xlabel('Index de entrada da rede')
+	plt.ylabel('Classe da saída')
+	plt.grid()
+	plt.legend()
+	plt.subplot(2, 1, 2)
+	plt.plot(np.squeeze(anfis_wine.trn_costs),'b',label="Treino")
+	plt.plot(np.squeeze(anfis_wine.val_costs),'r',label="Validação")
+	plt.xlabel('Épocas')
+	plt.ylabel('Erro quadrático médio')
+	plt.yscale('log')
+	plt.grid()
+	plt.legend()
+	plt.show()
+	plt.savefig('plots/Anfis.png')
+
 	plt.figure()
 	plt.plot(mlp.Y_test[:,1],mlp.net_test,'r^',label='RNA MLP')
 	plt.plot(mlp.Y_test[:,1],mlp.Y_test[:,0],'b.',label='Classe real correspondente')
