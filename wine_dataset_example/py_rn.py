@@ -213,8 +213,7 @@ def compare_nets():
 	plt.savefig('plots/saida_comparativa.png')
 
 def main():
-	standard_mlp()
-	#compare_nets()
+	compare_nets()
 
 if __name__ == '__main__':
 	main()
