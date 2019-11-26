@@ -1,7 +1,9 @@
+#%%
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 
+#%%
 # Função de ativação
 def sigmoid(t):
     return 1/(1+np.exp(-t))
@@ -22,7 +24,7 @@ def Vc_RC(t,r=5,c=0.1,vin=1):
     vc  = vin*(1 - np.exp(tau))
 
     return vc
-
+#%%
 # Class definition
 class NeuralNetwork:
     def __init__(self, x, y, n=4):
@@ -56,10 +58,7 @@ class NeuralNetwork:
     def train(self):
         self.saida = self.feedforward()
         self.backprop()
-
-
-
-
+#%%
 def main():
     # Definindo um modelo matemático
     t = np.arange(0,3,0.1)

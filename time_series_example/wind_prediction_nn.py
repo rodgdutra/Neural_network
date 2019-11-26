@@ -23,65 +23,67 @@ wind_may = dataframe.values
 
 #%%
 # Check the autocorrelation
-# Generating the autocorrelation to each lag
-x = np.array(wind_april).flatten()
-x1 = np.array(wind_may).flatten()
-lag = [0, 1, 2, 3, 4, 5, 17, 150]
-start = lag[-1]
-end = len(x)
+# Get the linear correlation coefficient to check which lags to use
+# Generating the autocorrelation to each Lags
+wind_april = np.array(wind_april).flatten()
+wind_may   = np.array(wind_may).flatten()
+Lags = [0, 1, 2, 3, 4, 5, 17, 150]
+start = Lags[-1]
+end = len(wind_april)
 
 # Lag matrix
-R = [x[start - i : end - i] for i in lag]
-r = np.corrcoef(R, R)
-corr = r[0][:8]
-print(corr)
+lag_matrix = [wind_april[start - i : end - i] for i in Lags]
+linear_corr = np.corrcoef(lag_matrix, lag_matrix)[0][:len(Lags)]
+print(" Lags analysed      :{0}".format(Lags))
+print(" Linear correlation :{0}".format(linear_corr))
 
 plt.figure()
-pd.plotting.autocorrelation_plot(x)
+pd.plotting.autocorrelation_plot(wind_april)
 plt.show()
 
 #%%
+# Split the dataset in train, validation and test
 # Split the dataset
-lag = [1, 2]
-start = lag[-1]
+Lags = [1, 2]
+start = Lags[-1]
 end = 4320
-x_train = [x[start - i : end - i] for i in lag]
-y_train = x[start:end]
+x_train = [wind_april[start - i : end - i] for i in Lags]
+y_train = wind_april[start:end]
 
-lag = [1, 2]
-start = lag[-1]
+Lags = [1, 2]
+start = Lags[-1]
 end = 2200
-x_val = [x1[start - i : end - i] for i in lag]
-y_val = x1[start:end]
+x_val = [wind_may[start - i : end - i] for i in Lags]
+y_val = wind_may[start:end]
 
-lag = [1, 2]
+Lags = [1, 2]
 start = 2201
 end = 4460
-x_test = [x1[start - i : end - i] for i in lag]
-y_test = x1[start:end]
+x_test = [wind_may[start - i : end - i] for i in Lags]
+y_test = wind_may[start:end]
 
 #%%
 # Normalize the datasets
 min1 = np.min(x_train[0])
-max1 = np.max(x_train[0])
+mawind_may = np.max(x_train[0])
 min2 = np.min(x_train[1])
 max2 = np.max(x_train[1])
-x_train[0] = (x_train[0] - min1) / (max1 - min1)
-x_train[1] = (x_train[1] - min2) / (max1 - min2)
+x_train[0] = (x_train[0] - min1) / (mawind_may - min1)
+x_train[1] = (x_train[1] - min2) / (mawind_may - min2)
 
 min1 = np.min(x_val[0])
-max1 = np.max(x_val[0])
+mawind_may = np.max(x_val[0])
 min2 = np.min(x_val[1])
 max2 = np.max(x_val[1])
-x_val[0] = (x_val[0] - min1) / (max1 - min1)
-x_val[1] = (x_val[1] - min2) / (max1 - min2)
+x_val[0] = (x_val[0] - min1) / (mawind_may - min1)
+x_val[1] = (x_val[1] - min2) / (mawind_may - min2)
 
 min1 = np.min(x_test[0])
-max1 = np.max(x_test[0])
+mawind_may = np.max(x_test[0])
 min2 = np.min(x_test[1])
 max2 = np.max(x_test[1])
-x_test[0] = (x_test[0] - min1) / (max1 - min1)
-x_test[1] = (x_test[1] - min2) / (max1 - min2)
+x_test[0] = (x_test[0] - min1) / (mawind_may - min1)
+x_test[1] = (x_test[1] - min2) / (mawind_may - min2)
 
 x_test = np.transpose(x_test)
 x_train = np.transpose(x_train)
@@ -131,6 +133,6 @@ pred = model.predict(x_val)
 pred = np.array(pred).flatten()
 
 plt.figure()
-plt.plot(y_test.flatten(), "r")
+plt.plot(y_test.flatten(), "linear_corr")
 plt.plot(pred.flatten(), "b")
 plt.show()
