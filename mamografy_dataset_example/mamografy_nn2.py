@@ -10,6 +10,7 @@ from sklearn.model_selection import train_test_split
 from pprint import pprint
 from keras.callbacks import EarlyStopping
 import matplotlib.pyplot as plt
+
 #%%
 # Importing data
 data_csv = "mamografy.csv"
@@ -21,12 +22,12 @@ start = 0
 end = 5
 norm_dataset = list()
 
-for i in range(start,end):
-    norm_col = dataset[:,i]/np.amax(dataset[:,i])
+for i in range(start, end):
+    norm_col = dataset[:, i] / np.amax(dataset[:, i])
     norm_dataset.append(norm_col)
 
-for i in range(end,end+2):
-    col = dataset[:,i]
+for i in range(end, end + 2):
+    col = dataset[:, i]
     norm_dataset.append(col)
 
 norm_dataset = pd.DataFrame(norm_dataset)
@@ -56,7 +57,7 @@ x_train, x_test, y_train, y_test = train_test_split(
 input_dim = x.shape[1]
 h_n = 10
 model = Sequential()
-model.add(Dense(h_n, input_dim=input_dim, activation="sigmoid"))
+model.add(Dense(h_n, input_dim=input_dim, activation="relu"))
 model.add(Dense(1, activation="linear"))
 
 # Compile model
@@ -72,24 +73,29 @@ history = model.fit(
     # verbose=0,
     callbacks=[
         EarlyStopping(
-            monitor="val_loss", mode="min", min_delta=1, patience=10, verbose=1
+            monitor="val_loss", mode="min", min_delta=0.1, patience=100, verbose=1
         )
     ],
 )
 
 # Plot the validation and train loss
-plt.plot(np.sqrt(history.history['loss']))
-plt.plot(np.sqrt(history.history['val_loss']))
-plt.title('Model loss')
-plt.ylabel('sqrt(MSE)')
-plt.xlabel('Epoch')
-plt.legend(['Train', 'Test'], loc='upper left')
+plt.plot(np.sqrt(history.history["loss"]))
+plt.plot(np.sqrt(history.history["val_loss"]))
+plt.title("Model loss")
+plt.ylabel("sqrt(MSE)")
+plt.xlabel("Epoch")
+plt.legend(["Train", "Test"], loc="upper left")
 plt.show()
 
-pred = model.predict(x_val)
+pred = model.predict(x_test)
 pred = np.array(pred).flatten()
 
-erro = pred - np.array(y_val[:,0]).flatten()
+result_dataframe = {"pred": pred, "real": y_test[:, 0]}
+
+pprint(result_dataframe)
+result_dataframe = pd.DataFrame(data=result_dataframe)
+pprint(result_dataframe)
+erro = pred - np.array(y_test[:, 0]).flatten()
 erro = np.abs(erro)
 
 pprint(erro)
@@ -97,7 +103,56 @@ pprint(erro)
 acerto = 0
 for i in erro:
     if i < 0.5:
-        acerto +=1
+        acerto += 1
 
 print(acerto)
 print(len(erro))
+
+#%%
+# Testing different number of neurons
+neurons = [5,10,15,30]
+repetitions = 2
+result = list()
+for neuron in neurons:
+    result_i = list()
+    for i in range(0,repetitions):
+        input_dim = x.shape[1]
+        h_n = neuron
+        model = Sequential()
+        model.add(Dense(h_n, input_dim=input_dim, activation="sigmoid"))
+        model.add(Dense(1, activation="linear"))
+
+        # Compile model
+        model.compile(loss="mse", optimizer="ADAM", metrics=["accuracy"])
+
+        # Train and validate the model
+        history = model.fit(
+            x_train,
+            y_train[:, 0],
+            validation_data=(x_val, y_val[:, 0]),
+            epochs=200,
+            batch_size=30,
+            # verbose=0,
+            callbacks=[
+                EarlyStopping(
+                    monitor="val_loss", mode="min", min_delta=0.1, patience=100, verbose=1
+                )
+            ],
+        )
+        pred = model.predict(x_test)
+        pred = np.array(pred).flatten()
+
+        erro = pred - np.array(y_test[:, 0]).flatten()
+        erro = np.abs(erro)
+
+        pprint(erro)
+
+        acerto = 0
+        for i in erro:
+            if i < 0.5:
+                acerto += 1
+
+        result_i.append(acerto)
+    result.append(result_i)
+
+result_df = {'neurons' : neuron, ''}
