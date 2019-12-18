@@ -1,5 +1,5 @@
 # Neural Network with python
-## To read in portuguese : [Readme em português](https://github.com/rodgdutra/Neural_network/readme-pt.md)
+## To read in portuguese : [Readme em português](https://github.com/rodgdutra/Neural_network/blob/master/readme-pt.md)
 
 This Repository contains several examples of Neural Networks applied in the solution of 2 major use cases, classification and regression focused on time series.
 
