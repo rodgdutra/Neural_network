@@ -24,9 +24,7 @@ Existem 2 exemplos de análise de regressão de séries temporais neste reposit�
 
 ## Há conteúdo em português neste repositório
 O conteúdo em português está listado abaixo:
-* Artigos: [previsão do BOVA11](https://github.com/rodgdutra/Neural_network/blob/master/time_series_bovespa/artigo_bova11.pdf); 
-
-* [classificação do vinho](https://github.com/rodgdutra/Neural_network/blob/master/wine_dataset_example/ artigo_vinho_mlp.pdf).
+* Artigos: [previsão do BOVA11](https://github.com/rodgdutra/Neural_network/blob/master/time_series_bovespa/artigo_bova11.pdf); [classificação do vinho](https://github.com/rodgdutra/Neural_network/blob/master/wine_dataset_example/artigo_vinho_mlp.pdf).
 
 * Relatórios: [Relatório de retropropagação](https://github.com/rodgdutra/Neural_network/blob/master/classic_neural_net/Relatorio_Back_Propagation%20(3).pdf), [Relatório da previsão de vento](https://github.com/rodgdutra/Neural_network/blob/master/time_series_wind/Relatorio_velocidade_do_vento.pdf), [Relatório de classificação do câncer de mama](https://github.com/rodgdutra/Neural_network/blob/master/mamografy_dataset_example/Relatorio_mamografia.pdf)
 
