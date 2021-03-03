@@ -3,7 +3,7 @@
 
 This Repository contains several examples of Neural Networks applied in the solution of 2 major use cases, classification and regression focused on time series.
 
-## Neural Network applied from 0
+## Neural Network applied from scratch
 There are a example is this repo applying a Neural Network from 0 using python to do so.
 * [classic neural net](https://github.com/rodgdutra/Neural_network/blob/master/classic_neural_net/classic_net.ipynb)
 
