@@ -1,30 +1,29 @@
-# Neural Network with python
-## To read in portuguese : [Readme em português](https://github.com/rodgdutra/Neural_network/blob/master/readme-pt.md)
+# Redes neural com python
 
-This Repository contains several examples of Neural Networks applied in the solution of 2 major use cases, classification and regression focused on time series.
+Este repositório contém vários exemplos de  aplicações de redes neurais artificiais para a solução de 2 tipos de problemas principais, classificação e regressão em séries temporais.
 
-## Neural Network applied from scratch
-There are a example is this repo applying a Neural Network from 0 using python to do so.
-* [classic neural net](https://github.com/rodgdutra/Neural_network/blob/master/classic_neural_net/classic_net.ipynb)
+## Rede Neural aplicada a partir do zero
+Há um exemplo deste repositório aplicando uma Rede Neural do tipo Multiple layer perceptron (MLP) usando python para fazer isso.
+* [rede neural MLP tradicional](https://github.com/rodgdutra/Neural_network/blob/master/classic_neural_net/classic_net.ipynb)
 
-## Classification
-The First classification example was applied into a Mammography dataset, to detect the severity of a breast cancer.
-* [Breast Cancer classification](https://github.com/rodgdutra/Neural_network/blob/master/mamografy_dataset_example/mamografy_classification.ipynb)
+## Classificação
 
-The second example applies several Topologies of classification to compare the best outcome of each structure proposed.
+### Classificador de cancer de mama
+Esse exemplo de classificação foi aplicado a um conjunto de dados de mamografia para detectar a gravidade de um câncer de mama.
+* [Classificação do câncer de mama](https://github.com/rodgdutra/Neural_network/blob/master/mamografy_dataset_example/mamografy_classification.ipynb)
 
-* [Wine classification](https://github.com/rodgdutra/Neural_network/tree/master/wine_dataset_example)
+### Redes neurais autoassociativas competitivas aplicadas na classificação de tipo de vinho
+Esse exemplo mostra a aplicação primeiramente de uma rede neural do tipo Multiple Layer Perceptron (MLP) em uma arquitetura tradicional e a compara com uma MLP em formato autoassociativo (ou autoencoder) competitivo para a solução do mesmo problema.
+* [Classificação do vinho](https://github.com/rodgdutra/Neural_network/tree/master/wine_dataset_example)
 
-## Time series
-There are 2 examples of time series regression analysis in this repository, the first one was applied to a wind velocity database, the second one was applied to the BOVA11 dataset. Both of the applications aim to predict 1 step ahead of the desired variable.
-* [Wind prediction](https://github.com/rodgdutra/Neural_network/blob/master/time_series_wind/wind_prediction.ipynb)
+## Previsão de um passo a frente em séries temporais
 
-* [BOVA11 prediction](https://github.com/rodgdutra/Neural_network/blob/master/time_series_bovespa/ibov_time_series.ipynb)
+### Previsão da velocidade do vento.
+Esse exemplo aplica redes neurais do tipo MLP para a previsão da velocidade do vento, tendo como entrada o comportamento passado dessa velocidade.
+* [Previsão de vento](https://github.com/rodgdutra/Neural_network/blob/master/time_series_wind/wind_prediction.ipynb)
 
-## There are Content in portuguese in this repository
-The contents in portuguese are listed bellow:
-* Papers: [BOVA11 prediction paper](https://github.com/rodgdutra/Neural_network/blob/master/time_series_bovespa/artigo_bova11.pdf), [Wine classification paper](https://github.com/rodgdutra/Neural_network/blob/master/wine_dataset_example/artigo_vinho_mlp.pdf)
 
-* Reports: [Backpropagation report](https://github.com/rodgdutra/Neural_network/blob/master/classic_neural_net/Relatorio_Back_Propagation%20(3).pdf),[Wind Prediction Report](https://github.com/rodgdutra/Neural_network/blob/master/time_series_wind/Relatorio_velocidade_do_vento.pdf),[Breast Cancer Classification Report](https://github.com/rodgdutra/Neural_network/blob/master/mamografy_dataset_example/Relatorio_mamografia.pdf)
+### Previsão do índice BOVA11.
+Nesse exemplo é aplicado a previsão de 1 passo a frente da série histórica de valores do indice BOVA11 utilizando uma rede neural do tipo Long short term memory (LSTM) e o modelo estatístico ARIMA para comparação.
+* [Previsão BOVA11](https://github.com/rodgdutra/Neural_network/blob/master/time_series_bovespa/ibov_time_series.ipynb)
 
-* Guides: [classic neural net](https://github.com/rodgdutra/Neural_network/blob/master/classic_neural_net/classic_net.ipynb)
