@@ -1,0 +1,44 @@
+
+\documentclass{article}
+\usepackage{graphicx,import}
+\usepackage[noadjust]{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{booktabs}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\usepackage[textwidth=1cm,textsize=tiny]{todonotes}
+
+\usepackage{glossaries}
+
+%floor function
+\usepackage{mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{printlen}
+
+
+\begin{document}
+\printlength\textwidth largura
+\begin{figure}[h!]
+    \def\svgwidth{\linewidth}
+    \centering
+    \import{/}{neuron.pdf_tex}
+\end{figure}
+
+\begin{figure}[h!]
+    \def\svgwidth{\linewidth}
+    \centering
+    \import{/}{mlp_net.pdf_tex}
+\end{figure}
+
+\begin{figure}[h!]
+    \def\svgwidth{\linewidth}
+    \centering
+    \import{/}{derivada_parcial.pdf_tex}
+\end{figure}
+\end{document}

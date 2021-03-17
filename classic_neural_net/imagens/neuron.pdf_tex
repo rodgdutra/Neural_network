@@ -1,0 +1,85 @@
+%% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'neuron.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{341.25bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.46357764)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0.08195494,0.37748601){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$X_1$\end{tabular}}}}%
+    \put(0.0821073,0.27900008){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$X_2$\end{tabular}}}}%
+    \put(0.08200762,0.16197925){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$X_i$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{neuron.pdf}}%
+    \put(0.22659408,0.27900008){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$W_2$\end{tabular}}}}%
+    \put(0.22659408,0.38025599){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$W_1$\end{tabular}}}}%
+    \put(0.22659408,0.16126071){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$W_n$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{neuron.pdf}}%
+    \put(0.44378822,0.43792555){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-\theta$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{neuron.pdf}}%
+    \put(0.51503987,0.2982082){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{neuron.pdf}}%
+    \put(0.65914567,0.27608991){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f(.)$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{neuron.pdf}}%
+    \put(0.79445936,0.27452012){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Sinal de saída\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{neuron.pdf}}%
+    \put(0.20335029,0.05994237){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Pesos\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{neuron.pdf}}%
+    \put(0.05859601,0.00758926){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Sinais de entrada\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{neuron.pdf}}%
+    \put(0.38277679,0.10974756){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Combinador linear\end{tabular}}}}%
+    \put(0.56497429,0.17301026){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Função de ativação\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{neuron.pdf}}%
+    \put(0.605593,0.43916142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Bias\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{neuron.pdf}}%
+    \put(0.62728681,0.3741736){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Potencial de ativação\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{neuron.pdf}}%
+    \put(0.45623376,0.27418423){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\sum{}{}$\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
